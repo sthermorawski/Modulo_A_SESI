@@ -59,6 +59,17 @@
          limpar.onclick = () =>
             ctx.clearRect(0, 0, tela.width, tela.height);
 
+            ctx.fillStyle ="white";
+        ctx.fillRect(0, 0, tela.width, tela.height);
+
+        // Exportar imagem
+exportar.onclick = () => {
+    const link = document.createElement("a");
+    link.download = "desenho.png";
+    link.href = tela.toDataURL("image/png");
+    link.click();
+
+};
 
     </script>
 </body>
