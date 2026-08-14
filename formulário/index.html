@@ -1,34 +1,83 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>formulario de validação</title>
+    <title>Formulário de Validação</title>
+
+    <style>
+        /*criar estilo para formulario*/
+        body {
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: rgb(14, 14, 41);
+        }
+    </style>
+
 </head>
 <body>
-    <form acordion="">
+    <form>
         <input type="text" id="nome" placeholder="Nome">
         <p id="errorName"></p>
 
-         <input type="email" id="email" placeholder="Email">
-         <p id="errorEmail"></p>
+        <input type="email" id="email" placeholder="Email">
+        <p id="errorEmail"></p>
 
-         <input type="password" id="password" placeholder="Senha">
-         <p id="errorSenha"></p>
+        <input type="password" id="password" placeholder="Senha">
+        <p id="errorSenha"></p>
 
-         <button id="botao" disabled>enviar</button>
-
+        <button id="botao" disabled>Enviar</button>
     </form>
-
+    
     <script>
-        const nome = document.getElementbyId("nome");
-        const email = document.getElementbyId("email");
-        const senha = document.getElementbyId("senha");
-        const botao = document.getElementbyId("botao");
+        const nome = document.getElementById("nome");
+        const email = document.getElementById("email");
+        const senha = document.getElementById("password");
+        const botao = document.getElementById("botao");
 
-        //expressoes regulares para email e senha
+        // Expressões regulares para email e senha
+
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const regexSenha = /^(?=.*[a-zA-z])(?=.*[\W_]).{8,}$/;
+        const regexSenha = /^(?=.*[a-zA-Z])(?=.*[\W_]).{8,}$/;
+
+        function validar(){
+
+            let valido = true;
+
+            //Validação campo nome
+            if(nome.value===""){
+                errorName.innerText = "Nome obrigatório";
+                valido = false;
+            }
+            else {
+                errorName.innerText = " ";
+            }
+
+            //Validação do campo email
+            if(!regexEmail.test(email.value)){
+                errorEmail.innerText = "Email inválido"
+                valido = false;
+            }
+            else {
+                errorEmail.innerText= "";
+            }
+
+            botao.disabled = !valido;
+
+            //Desafio: Criar validação do campo senha.
+
+            //Validação campo senha
+            if(!regexSenha.test(senha.value)){
+                errorSenha.innerText = "Senha inválida (Deve conter no minimo 8 caracteres, 1 letra maiúscula e minúscula e um símbolo especial)";
+                valido = false;
+            }
+            else {
+                errorSenha.innerText= "";
+            }
+        }
+
+        nome.addEventListener("input", validar);
+        email.addEventListener("input", validar);
+        senha.addEventListener("input", validar);
     </script>
 </body>
-</html>
